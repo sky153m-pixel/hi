@@ -1,0 +1,643 @@
+DISCORD VOICE BEAST X — ULTIMATE C++ MASTER PROMPT
+
+PROJECT MISSION
+
+You are an elite team of senior C++ engineers, Windows audio-driver specialists, digital signal processing engineers, desktop application architects, UI/UX designers, and QA engineers.
+
+Build a complete, production-oriented Windows desktop application called:
+
+DISCORD VOICE BEAST X
+
+Tagline: Your Voice. Your Power. No Limits.
+
+This is a native Windows audio-processing and soundboard application designed primarily for Discord gaming, voice chats, streaming, and live audio playback.
+
+I want a serious, premium, high-performance implementation using C++ as the primary programming language. Do not build a Python-based application, Electron application, browser-based application, or a superficial UI prototype.
+
+The final product must include a real-time microphone processing engine, virtual microphone routing, an advanced soundboard, an audio mixer, professional loudness controls, a premium desktop interface, and a reproducible Windows EXE and installer build.
+
+Do not assume that the project is complete until the actual application has been built and the critical audio-routing paths have been tested.
+
+---
+
+1. TARGET PLATFORM AND DEVELOPMENT CONSTRAINTS
+
+Primary platform:
+
+- Windows 10 and Windows 11, subject to the selected toolchain and dependencies.
+- Native x64 application.
+- C++17 or C++20, depending on library compatibility.
+- Optimized Release build.
+- Compatible with an Intel Core i3-1215U, 8 GB RAM, Intel UHD integrated graphics, and a 512 GB SSD.
+- No dedicated GPU requirement.
+- No mandatory paid service, subscription, or cloud API for core audio functionality.
+
+Use a maintainable, modular architecture with clear interfaces between the audio engine, device routing, UI, settings, and soundboard.
+
+Prefer mature libraries with documented APIs, compatible licenses, active maintenance, and reproducible builds.
+
+Do not invent APIs, drivers, build results, benchmark results, or features.
+
+2. TECHNOLOGY STACK
+
+Evaluate and select the best compatible technologies for the production application.
+
+Primary language:
+
+- Modern C++.
+
+Audio processing:
+
+- JUCE audio infrastructure and DSP modules where appropriate.
+- Windows Audio Session API (WASAPI), preferably shared-mode low-latency capture and rendering.
+- Exclusive-mode WASAPI only where appropriate and supported.
+- Windows device enumeration and endpoint notifications.
+- A well-tested audio decoder for WAV, MP3, FLAC, OGG, and M4A where licensing and decoder availability permit.
+
+Virtual microphone routing:
+
+- Integrate a supported virtual audio cable or compatible virtual recording device.
+- Evaluate the requirements for a custom Windows virtual audio driver only if necessary.
+- Keep user-mode audio processing separate from kernel-mode driver functionality.
+- Never pretend that ordinary C++ application code automatically creates a Windows microphone device.
+
+User interface:
+
+- Use JUCE's native desktop application framework or another appropriate native C++ UI framework.
+- Build a polished, responsive, GPU-light interface.
+- Keep rendering and UI updates separate from the real-time audio callback.
+
+Build and packaging:
+
+- CMake.
+- Visual Studio 2022 or a compatible MSVC toolchain.
+- Windows SDK.
+- Inno Setup or an equivalent installer technology.
+- Automated build scripts and reproducible dependency configuration.
+
+Provide a clear justification for the final technology choices before implementation.
+
+3. PRODUCTION ARCHITECTURE
+
+Separate the project into the following logical modules:
+
+1. ApplicationShell
+2. AudioDeviceManager
+3. MicrophoneCaptureEngine
+4. VoiceProcessingEngine
+5. SoundboardEngine
+6. AudioMixer
+7. VirtualMicrophoneRouter
+8. AudioMonitoringEngine
+9. PresetManager
+10. ConfigurationManager
+11. DiagnosticsAndLogging
+12. DiscordSetupWizard
+13. MainDashboard
+14. InstallerAndBuildSystem
+
+The core audio engine must not depend on the UI being responsive.
+
+Use thread-safe communication between the audio engine and the interface.
+
+The audio callback must avoid blocking operations, disk access, unnecessary memory allocation, network requests, and mutex contention.
+
+Preallocate buffers where practical. Use suitable lock-free queues or bounded message passing for communication between real-time and non-real-time components.
+
+Make resource ownership explicit using modern C++ RAII and smart pointers.
+
+Handle application shutdown without leaving devices, threads, or audio resources active.
+
+4. ADVANCED LIVE MICROPHONE PROCESSING
+
+Capture audio from the user's selected physical microphone.
+
+Support:
+
+- Laptop microphone.
+- USB microphone.
+- Headset microphone.
+- External audio interface.
+- Other compatible Windows recording endpoints.
+
+Build a configurable DSP signal chain containing:
+
+1. Input trim.
+2. Preamp gain.
+3. High-pass filter.
+4. Parametric equalizer.
+5. Noise gate or expander.
+6. Optional noise suppression.
+7. Compressor.
+8. Optional multiband compression.
+9. Makeup gain.
+10. Output gain.
+11. True-peak-aware or oversampled limiting where practical.
+12. Final output metering.
+
+Expose the following controls:
+
+- Input gain in dB.
+- Output gain in dB.
+- Compressor threshold.
+- Compressor ratio.
+- Attack and release.
+- Knee.
+- Makeup gain.
+- Gate threshold.
+- EQ frequency, gain, and Q.
+- Limiter ceiling.
+- Optional stereo width where appropriate.
+- Wet/dry control for supported effects.
+- Processing bypass.
+- Master mute.
+- Preset save and restore.
+
+Make every control modify the actual audio signal.
+
+Display signal-chain status and the active values of all DSP parameters.
+
+Implement parameter smoothing where needed to prevent clicks when controls change.
+
+5. EXTREME LOUDNESS AND SIGNAL QUALITY
+
+Create a dedicated Extreme Loudness Studio.
+
+The objective is a voice that sounds powerful, clear, full, and intelligible on Discord without unnecessary distortion.
+
+Include:
+
+- Strong but adjustable amplification.
+- Compression with configurable ratios.
+- Makeup gain.
+- Optional multiband processing.
+- EQ for voice clarity.
+- Peak and loudness meters.
+- Clipping detection.
+- Limiter protection.
+- Input and output level comparison.
+- Gain-reduction display.
+- A real-time clipping warning.
+- A safe reset-to-default option.
+
+Support a configurable UI amplification scale that can display percentage and the corresponding gain in dB.
+
+Clearly distinguish between digital gain, perceived loudness, and actual acoustic sound pressure.
+
+Do not promise that 300%, 500%, or any other arbitrary percentage produces an equivalent increase in perceived loudness.
+
+Do not disable protection silently when the user selects Maximum Loudness.
+
+A limiter must not be marketed as a guarantee against every form of distortion. Preserve headroom, monitor signal peaks, and provide an intelligible output.
+
+Provide these presets:
+
+- Natural Voice
+- Clear Discord Voice
+- Gaming Voice
+- Deep Radio Voice
+- Broadcast Voice
+- Punchy Voice
+- Extreme Loudness
+- Clean Soundboard
+- Custom
+
+Presets must represent real, tested parameter configurations.
+
+6. ADVANCED VOICE CHARACTER AND EFFECTS
+
+Create an optional Voice Effects Studio.
+
+Include:
+
+- Parametric EQ.
+- Low and high-pass filters.
+- Subtle saturation.
+- Radio/communications effect.
+- Optional pitch shift.
+- Optional formant-preserving pitch processing if a suitable implementation is available.
+- Reverb and delay for creative effects.
+- Effect intensity control.
+- Dry/wet mixing.
+- Individual effect bypass.
+
+Effects must be optional and disabled by default unless selected by the user.
+
+Avoid adding unnecessary effects to the normal voice preset.
+
+Clearly communicate which effects increase latency or CPU usage.
+
+7. VIRTUAL MICROPHONE AND DISCORD ROUTING
+
+This is one of the highest-priority features.
+
+Implement genuine audio routing so Discord can receive the processed microphone and soundboard signal.
+
+Required signal path:
+
+Physical Microphone
+-> WASAPI Capture
+-> Voice DSP Chain
+-> Voice Channel Mixer
+-> Final Output Limiter
+-> Supported Virtual Audio Device
+-> Discord Microphone Input
+
+The application must:
+
+1. Enumerate physical recording and playback devices.
+2. Allow the user to select the input microphone.
+3. Process live audio in real time.
+4. Send the processed signal to the selected virtual device or supported routing endpoint.
+5. Display whether the routing path is operational.
+6. Detect device disconnection and reconnection.
+7. Handle sample-rate mismatches correctly.
+8. Provide understandable diagnostics for unavailable or misconfigured devices.
+9. Avoid feedback loops.
+10. Avoid transmitting monitoring playback back into the microphone channel.
+
+Integrate a documented, supported virtual audio cable solution where possible.
+
+Provide an installer workflow or setup guide for the selected driver.
+
+If a third-party driver is required, identify it clearly, respect its license, and obtain any required installation consent.
+
+If a custom driver is necessary, treat it as a separate engineering project with its own build requirements, signing requirements, installation permissions, and validation. Do not attempt to implement kernel-mode audio functionality as an ordinary user-mode audio callback.
+
+Do not claim that the virtual microphone works until it is actually detected and the routing path has been verified.
+
+8. PROFESSIONAL SOUNDBOARD
+
+Build a fully functional soundboard with a modern grid-based interface.
+
+Supported formats should include:
+
+- WAV.
+- MP3.
+- FLAC.
+- OGG.
+- M4A where supported by the selected decoder.
+
+Required capabilities:
+
+- File picker.
+- Drag-and-drop import.
+- Search.
+- Categories.
+- Favorites.
+- Custom sound names.
+- Per-sound volume.
+- Soundboard master volume.
+- Playback progress.
+- Duration display.
+- Play, pause, stop, and restart.
+- Optional looping.
+- Optional fade-in and fade-out.
+- Custom keyboard shortcuts.
+- Configurable hotkey behavior.
+- Playback queue.
+- Remove and reorder sounds.
+- Import and export soundboard configurations.
+- Persist library metadata across application restarts.
+
+Provide one-click sound triggers suitable for gaming.
+
+Support multiple concurrent clips using a bounded, configurable polyphony limit.
+
+When the limit is reached, use a predictable policy such as rejecting a new clip or stopping the oldest clip.
+
+Do not allow uncontrolled audio-thread memory growth.
+
+Provide audio preview modes:
+
+- Local headphone preview.
+- Virtual microphone transmission.
+- Optional preview and transmission simultaneously, with explicit feedback-loop safeguards.
+
+Soundboard playback must be mixed into the actual virtual microphone output when transmission mode is selected.
+
+9. REAL-TIME VOICE AND SOUNDBOARD MIXER
+
+Implement three independently controllable paths:
+
+Channel A: Processed live microphone.
+
+Channel B: Soundboard audio.
+
+Channel C: Optional local monitoring.
+
+Provide:
+
+- Independent channel gain.
+- Mute and solo.
+- Peak meters.
+- Clipping indicators.
+- Master output control.
+- Voice-only mode.
+- Soundboard-only mode.
+- Combined voice-and-soundboard mode.
+- Configurable ducking of soundboard audio while speaking.
+- Optional automatic soundboard fade-out.
+- Adjustable ducking threshold and release time.
+
+Ducking must be optional and must not cut off normal speech.
+
+Combine the voice and soundboard into the same final virtual microphone stream.
+
+Prevent local monitoring from being captured again as microphone input.
+
+10. LOW-LATENCY AUDIO ENGINE
+
+Optimize the engine for real-time performance on a low-to-mid-range Windows laptop.
+
+Requirements:
+
+- Prefer 48 kHz processing when compatible.
+- Support other common device rates where practical.
+- Correct channel mapping.
+- Robust sample-rate conversion.
+- Bounded buffering.
+- Minimal unnecessary copies.
+- Predictable callback execution.
+- Proper underrun and overrun detection.
+- Graceful recovery after endpoint changes.
+- No audio processing on the UI thread.
+
+Provide configurable buffer sizes with sensible defaults.
+
+Report measured end-to-end latency only when it has been measured with a reproducible method.
+
+Include diagnostics for:
+
+- Audio callback duration.
+- Buffer underruns.
+- Buffer overruns.
+- Peak input and output.
+- Clipping events.
+- Active sample rate.
+- Active buffer size.
+- Current devices.
+- Routing status.
+
+Avoid priority escalation beyond what is needed for reliable audio processing.
+
+11. PREMIUM UI AND USER EXPERIENCE
+
+Create a premium dark desktop application with a professional audio workstation aesthetic.
+
+Visual identity:
+
+- Matte black and charcoal backgrounds.
+- Electric purple, cyan, and blue accents.
+- Restrained glow effects.
+- High-quality typography.
+- Clear visual hierarchy.
+- Smooth, lightweight transitions.
+- Real-time meters and waveform visualization.
+- Consistent spacing and iconography.
+
+The interface must be fast and usable on Intel UHD graphics.
+
+Create these screens:
+
+A. Dashboard
+B. Microphone Studio
+C. Extreme Loudness Studio
+D. Soundboard
+E. Audio Mixer
+F. Voice Effects Studio
+G. Device Routing
+H. Preset Library
+I. Diagnostics
+J. Settings
+K. About
+
+Dashboard widgets:
+
+- Selected microphone.
+- Selected virtual output.
+- Microphone input meter.
+- Processed output meter.
+- Current gain.
+- Active preset.
+- Voice-processing status.
+- Soundboard playback status.
+- Clipping warning.
+- Quick soundboard controls.
+- Audio device health.
+- CPU usage, if available through a reliable implementation.
+
+All controls must be functional.
+
+Do not simulate audio levels or show fabricated device states.
+
+Keep animations lightweight and make expensive visualizations optional.
+
+12. SETTINGS AND PRESET SYSTEM
+
+Use a versioned configuration format such as JSON.
+
+Persist:
+
+- Device selections.
+- DSP parameters.
+- Presets.
+- Soundboard metadata.
+- Hotkeys.
+- UI preferences.
+- Monitoring preferences.
+- Audio engine configuration.
+
+Validate loaded configuration values.
+
+Handle missing, malformed, or outdated configuration files gracefully.
+
+Include:
+
+- Restore defaults.
+- Export settings.
+- Import settings.
+- Reset presets.
+- Backup configuration.
+
+Avoid storing unnecessary sensitive information.
+
+Do not record or upload microphone content.
+
+13. WINDOWS APPLICATION AND INSTALLER
+
+Build a genuine Windows x64 application.
+
+Deliver:
+
+- Release executable.
+- Required runtime dependencies.
+- Application icon.
+- Version metadata.
+- Installer.
+- Desktop shortcut.
+- Start Menu shortcut.
+- Clean uninstall.
+- Settings persistence.
+- First-launch setup wizard.
+- Virtual device installation guidance.
+- Troubleshooting guide.
+
+Use CMake and a documented MSVC build process.
+
+Prefer statically linking appropriate runtime components when compatible with dependency licenses and the selected framework's requirements. Otherwise package the required runtime transparently.
+
+Use a signed installer only if a legitimate code-signing certificate is available. Never fabricate a digital signature.
+
+Do not promise a single-file standalone executable if the virtual audio driver or third-party runtime has to be installed separately.
+
+The installer must distinguish between:
+
+1. The main application.
+2. Required runtimes.
+3. Optional audio drivers or routing dependencies.
+
+Request administrator privileges only when necessary.
+
+14. SECURITY, LICENSES, AND PRIVACY
+
+Use legitimate dependencies.
+
+Review third-party library and driver redistribution requirements.
+
+Do not include hidden telemetry, microphone recording, credential collection, or undisclosed network activity.
+
+Do not download or install drivers silently.
+
+Show clear permission and installation information.
+
+Keep diagnostic logging limited to technical metadata unless the user explicitly enables additional logging.
+
+Do not modify Discord binaries or bypass Discord's application security.
+
+The application must function without an account or cloud connection for its core audio features.
+
+15. AUTOMATED TESTING AND VALIDATION
+
+Create a test suite for the audio-processing components.
+
+Test:
+
+- Gain calculations.
+- Compressor response.
+- Limiter behavior.
+- Filter stability.
+- Sample-rate conversion.
+- Channel mapping.
+- Mixing and clipping.
+- Configuration serialization.
+- Soundboard queue behavior.
+- Device disconnection handling.
+- Audio engine shutdown.
+- Buffer boundaries.
+- Hotkey registration and cleanup.
+
+Use generated test signals to verify the DSP chain.
+
+Verify that:
+
+- The microphone path transmits actual processed audio.
+- Soundboard files reach the virtual microphone.
+- Both sources can play simultaneously.
+- Output gain changes the signal as expected.
+- Clipping is detected.
+- The limiter behaves according to its documented design.
+- The application can recover from device changes.
+
+Where hardware-dependent tests cannot be automated, provide a clear manual test procedure.
+
+Do not fabricate test results or report unexecuted tests as passing.
+
+16. BUILD AND DEVELOPMENT WORKFLOW
+
+Work in phases, but continue through implementation instead of stopping after planning.
+
+Phase 1:
+Inspect the environment, compiler, Windows SDK, available dependencies, and project directory.
+
+Phase 2:
+Create the CMake project, application entry point, configuration system, and basic native UI.
+
+Phase 3:
+Implement and test device enumeration and microphone capture.
+
+Phase 4:
+Implement the real-time DSP chain and loudness controls.
+
+Phase 5:
+Implement virtual microphone routing and validate the signal path.
+
+Phase 6:
+Implement audio decoding and the soundboard.
+
+Phase 7:
+Implement the voice-and-soundboard mixer.
+
+Phase 8:
+Build the premium interface and integrate every control.
+
+Phase 9:
+Implement diagnostics, recovery, and device-change handling.
+
+Phase 10:
+Write tests, build the optimized Release executable, and resolve compilation errors.
+
+Phase 11:
+Create the Windows installer and validate the installation and uninstallation process.
+
+Phase 12:
+Perform final verification and prepare the deliverables.
+
+Maintain a TODO list and report blockers honestly.
+
+If a dependency cannot be installed, continue implementing components that do not depend on it. Clearly distinguish working functionality from unverified functionality.
+
+Do not replace required features with mock implementations merely to make the project appear complete.
+
+17. FINAL ACCEPTANCE CRITERIA
+
+The project is considered complete only when:
+
+1. The native C++ application compiles successfully.
+2. The executable launches on the target Windows environment.
+3. A real microphone can be selected.
+4. Live voice is processed through the actual DSP chain.
+5. A supported virtual audio device receives processed audio.
+6. Discord can select the appropriate virtual microphone.
+7. Imported sound files can be played through that output.
+8. Live voice and soundboard audio can be mixed.
+9. Gain and compressor controls change the actual signal.
+10. Clipping and output-level problems are reported accurately.
+11. Settings and presets persist.
+12. The installer builds successfully.
+13. The application can be uninstalled cleanly.
+14. Actual test results and known limitations are documented.
+
+18. FINAL DELIVERABLES
+
+Provide:
+
+- Complete C++ source code.
+- CMake configuration.
+- Dependency manifest.
+- Reproducible build scripts.
+- Unit and integration tests.
+- Release executable.
+- Windows installer.
+- Driver and routing setup instructions.
+- Discord configuration guide.
+- User manual.
+- Troubleshooting guide.
+- Build and test report.
+- Known limitations.
+
+Start by inspecting the available environment and producing a short implementation plan. Then immediately begin implementation.
+
+Do not stop at a mockup, architecture document, or starter project. Build the real application, compile it, test it, fix the issues you can reproduce, and package the verified result.
+
+Priority order: audio correctness, actual virtual microphone routing, low latency, intelligibility, stability, performance, premium UX, and distribution quality.
